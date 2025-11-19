@@ -250,21 +250,45 @@ export default function Home() {
               <AsciiGlobe className="text-primary dark:text-primary scale-[1.5] sm:scale-[1.8] origin-center" />
             </motion.div>
 
-            <div className="relative z-10 max-w-2xl">
-              <motion.h1
+            <div className="relative z-10 max-w-4xl">
+              <div className="relative mb-12 select-none cursor-default">
+                {/* First line: HEY, I'M */}
+                <motion.div
+                  initial={{ x: -50, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  className="relative z-20"
+                >
+                  <h1 className="text-6xl sm:text-8xl md:text-9xl font-serif font-black tracking-tighter leading-[0.8] mix-blend-exclusion">
+                    <span className="inline-block hover:text-primary transition-colors duration-300">HEY,</span>
+                    <br />
+                    <span className="inline-block ml-12 sm:ml-24 italic font-light hover:text-primary transition-colors duration-300">I'M</span>
+                  </h1>
+                </motion.div>
+
+                {/* Second line: MCTHAY - Outlined & Offset */}
+                <motion.div
+                  initial={{ x: 50, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                  className="relative z-10 -mt-4 sm:-mt-8 md:-mt-12 ml-4 sm:ml-16"
+                >
+                  <h1 className="text-[15vw] sm:text-9xl md:text-[10rem] font-mono font-bold tracking-tight leading-[0.8] text-outline select-none">
+                    <motion.span 
+                      className="inline-block hover:text-primary hover:text-opacity-10 transition-all duration-300 hover:skew-x-12 origin-bottom cursor-pointer text-outline"
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      MCTHAY.
+                    </motion.span>
+                  </h1>
+                </motion.div>
+              </div>
+
+              <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.6 }}
-                className="text-5xl sm:text-7xl md:text-8xl font-bold font-sans uppercase tracking-tighter leading-[0.85] mb-12"
-              >
-                HEY, I'M <br/>
-                <span className="text-outline-foreground text-transparent bg-clip-text bg-foreground">MCTHAY.</span>
-              </motion.h1>
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-                className="max-w-xl space-y-6 text-xl sm:text-2xl leading-relaxed font-light"
+                transition={{ delay: 0.6 }}
+                className="max-w-xl space-y-6 text-xl sm:text-2xl leading-relaxed font-light ml-2 sm:ml-4"
               >
                 <p>
                   Design Engineer for the <span className="text-primary font-medium">ambitious few</span>. 

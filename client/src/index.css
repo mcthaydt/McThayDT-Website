@@ -60,6 +60,18 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  .text-outline {
+    color: currentColor;
+    -webkit-text-stroke: 1px transparent;
+  }
+
+  @supports (-webkit-text-stroke: 1px black) {
+    .text-outline {
+      color: transparent;
+      -webkit-text-stroke: 1px currentColor;
+    }
+  }
   
   .bg-noise {
     position: fixed;
