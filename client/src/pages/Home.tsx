@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus, ArrowUpRight, Moon, Sun, Twitter, Copy } from "lucide-react";
-import { Globe } from "@/components/ui/globe";
+import { AsciiGlobe } from "@/components/ui/ascii-globe";
 
 // --- Components ---
 
@@ -296,15 +296,15 @@ export default function Home() {
               </motion.div>
             </div>
             
-            {/* 3D Spinning Globe */}
+            {/* ASCII Wireframe Globe */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.6, duration: 0.8 }}
-              className="hidden lg:block relative h-[400px] w-[400px] -mr-24"
+              className="hidden lg:flex relative h-[400px] w-[400px] -mr-24 items-center justify-center"
             >
               <div className="absolute inset-0 bg-primary/5 blur-3xl rounded-full" />
-              <Globe className="relative z-10" />
+              <AsciiGlobe className="relative z-10 scale-150" />
             </motion.div>
           </div>
         </header>
