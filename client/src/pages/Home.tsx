@@ -255,7 +255,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
-                className="text-5xl sm:text-7xl md:text-8xl font-bold uppercase tracking-tighter leading-[0.85] mb-12"
+                className="text-5xl sm:text-7xl md:text-8xl font-bold font-sans uppercase tracking-tighter leading-[0.85] mb-12"
               >
                 HEY, I'M <br/>
                 <span className="text-outline-foreground text-transparent bg-clip-text bg-foreground">MCTHAY.</span>
