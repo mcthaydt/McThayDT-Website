@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
-import { Plus, Minus, ArrowUpRight, Moon, Sun, Linkedin, Copy, Check } from "lucide-react";
+import { Plus, Minus, ArrowUpRight, Moon, Sun, Linkedin, Twitter, Instagram, Github, Copy, Check } from "lucide-react";
 import { AsciiGlobe } from "@/components/ui/ascii-globe";
 
 // Import static data directly
@@ -425,7 +425,13 @@ export default function Home() {
                </a>
                <div className="flex gap-6 mt-8">
                  <a href="#" className="h-12 w-12 flex items-center justify-center border border-border hover:bg-foreground hover:text-background transition-colors rounded-full">
-                   <Linkedin size={20} />
+                   <Twitter size={20} />
+                 </a>
+                 <a href="#" className="h-12 w-12 flex items-center justify-center border border-border hover:bg-foreground hover:text-background transition-colors rounded-full">
+                   <Instagram size={20} />
+                 </a>
+                 <a href="#" className="h-12 w-12 flex items-center justify-center border border-border hover:bg-foreground hover:text-background transition-colors rounded-full">
+                   <Github size={20} />
                  </a>
                </div>
             </div>
