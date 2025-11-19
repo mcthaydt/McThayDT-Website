@@ -30,7 +30,7 @@ const ThemeToggle = () => {
   return (
     <button 
       onClick={toggleTheme}
-      className="fixed bottom-8 right-8 z-40 p-3 bg-foreground text-background hover:bg-primary hover:text-white transition-colors rounded-full shadow-lg"
+      className="fixed bottom-8 right-8 z-50 p-3 bg-foreground text-background hover:bg-primary hover:text-white transition-colors rounded-full shadow-lg"
       aria-label="Toggle theme"
     >
       {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
@@ -251,18 +251,18 @@ export default function Home() {
   const [openFact, setOpenFact] = useState<string | null>("games");
 
   return (
-    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300 relative overflow-x-hidden">
       <NoiseOverlay />
       <ThemeToggle />
       
       <div className="max-w-screen-lg mx-auto px-6 py-12 sm:py-24 relative z-10">
         {/* Header */}
-        <header className="mb-40 relative">
+        <header className="mb-40 relative min-h-[50vh] flex flex-col justify-center">
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="flex justify-between items-start mb-24"
+            className="flex justify-between items-start mb-24 relative z-20"
           >
             <div className="w-8 h-8 bg-primary animate-pulse" />
             <nav className="flex gap-8 text-xs font-bold uppercase tracking-widest">
@@ -272,8 +272,18 @@ export default function Home() {
             </nav>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
-            <div className="lg:col-span-2 relative z-20">
+          <div className="relative">
+            {/* ASCII Wireframe Globe - Positioned Absolutely Behind */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.15 }}
+              transition={{ delay: 0.8, duration: 1.5 }}
+              className="absolute -top-20 -right-20 sm:-right-40 w-[100%] sm:w-[600px] h-[600px] flex items-center justify-center z-0 pointer-events-none mix-blend-multiply dark:mix-blend-screen"
+            >
+              <AsciiGlobe className="text-primary dark:text-primary scale-[1.5] sm:scale-[1.8] origin-center" />
+            </motion.div>
+
+            <div className="relative z-10 max-w-2xl">
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -295,17 +305,6 @@ export default function Home() {
                 </p>
               </motion.div>
             </div>
-            
-            {/* ASCII Wireframe Globe */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-              className="hidden lg:flex relative h-[400px] w-[400px] -mr-24 items-center justify-center"
-            >
-              <div className="absolute inset-0 bg-primary/5 blur-3xl rounded-full" />
-              <AsciiGlobe className="relative z-10 scale-150" />
-            </motion.div>
           </div>
         </header>
 
