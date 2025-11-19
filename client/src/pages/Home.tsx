@@ -156,8 +156,8 @@ const VisualStat = ({ label, value, max = 100, suffix = "%" }: { label: string, 
 
 const FactItem = ({ label, value }: { label: string, value: string }) => (
   <div className="flex justify-between items-baseline py-2 border-b border-dashed border-border last:border-0 group hover:bg-muted/20 transition-colors px-2 -mx-2 cursor-default">
-    <span className="text-sm font-bold uppercase tracking-wider text-muted-foreground group-hover:text-primary transition-colors">{label}</span>
-    <span className="font-mono text-right group-hover:translate-x-[-4px] transition-transform duration-300">{value}</span>
+    <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground group-hover:text-primary transition-colors">{label}</span>
+    <span className="font-mono text-sm text-right group-hover:translate-x-[-4px] transition-transform duration-300">{value}</span>
   </div>
 );
 
