@@ -94,3 +94,23 @@ html.lenis, html.lenis body {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary));
+  border-radius: 0px;
+  border: 2px solid hsl(var(--background)); /* Adds a small gap/padding effect */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary));
+  opacity: 0.8;
+}
