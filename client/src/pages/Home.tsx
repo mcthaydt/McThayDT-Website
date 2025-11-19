@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Minus, ArrowUpRight, Moon, Sun, Twitter, Copy } from "lucide-react";
+import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
+import { Plus, Minus, ArrowUpRight, Moon, Sun, Twitter, Copy, Check } from "lucide-react";
 import { AsciiGlobe } from "@/components/ui/ascii-globe";
 
 // --- Components ---
@@ -8,6 +8,22 @@ import { AsciiGlobe } from "@/components/ui/ascii-globe";
 const NoiseOverlay = () => (
   <div className="bg-noise mix-blend-multiply dark:mix-blend-overlay" />
 );
+
+const ScrollProgress = () => {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  return (
+    <motion.div
+      className="fixed top-0 left-0 right-0 h-1 bg-primary origin-left z-50 mix-blend-difference"
+      style={{ scaleX }}
+    />
+  );
+};
 
 const ThemeToggle = () => {
   const [theme, setTheme] = useState<"light" | "dark">("light");
@@ -35,6 +51,22 @@ const ThemeToggle = () => {
     >
       {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
     </button>
+  );
+};
+
+const NavLink = ({ href, children }: { href: string, children: React.ReactNode }) => {
+  return (
+    <a 
+      href={href} 
+      className="relative group overflow-hidden inline-block"
+    >
+      <span className="inline-block transition-transform duration-300 group-hover:-translate-y-full">
+        {children}
+      </span>
+      <span className="absolute top-0 left-0 inline-block translate-y-full transition-transform duration-300 group-hover:translate-y-0 text-primary">
+        [{children}]
+      </span>
+    </a>
   );
 };
 
@@ -67,13 +99,15 @@ const AccordionItem = ({ title, subtitle, children, isOpen, onClick }: { title: 
     >
       <button 
         onClick={onClick}
-        className="w-full flex items-center justify-between group hover:text-primary transition-colors text-left"
+        className="w-full flex items-center justify-between group transition-colors text-left py-2"
       >
         <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6 pr-4">
-          <span className="text-2xl sm:text-3xl font-medium uppercase tracking-tight leading-none">{title}</span>
+          <span className={`text-2xl sm:text-3xl font-medium uppercase tracking-tight leading-none transition-colors ${isOpen ? 'text-primary' : 'group-hover:text-primary'}`}>
+            {title}
+          </span>
           {subtitle && <span className="text-sm font-mono text-muted-foreground group-hover:text-primary/70 transition-colors">[{subtitle}]</span>}
         </div>
-        <span className="text-muted-foreground group-hover:text-primary transition-colors shrink-0 ml-4">
+        <span className={`text-muted-foreground transition-transform duration-300 ${isOpen ? 'text-primary rotate-180' : 'group-hover:text-primary'}`}>
           {isOpen ? <Minus size={24} /> : <Plus size={24} />}
         </span>
       </button>
@@ -114,26 +148,25 @@ const VisualStat = ({ label, value, max = 100, suffix = "%" }: { label: string, 
 );
 
 const FactItem = ({ label, value }: { label: string, value: string }) => (
-  <div className="flex justify-between items-baseline py-2 border-b border-dashed border-border last:border-0 group hover:bg-muted/20 transition-colors px-2 -mx-2">
+  <div className="flex justify-between items-baseline py-2 border-b border-dashed border-border last:border-0 group hover:bg-muted/20 transition-colors px-2 -mx-2 cursor-default">
     <span className="text-sm font-bold uppercase tracking-wider text-muted-foreground group-hover:text-primary transition-colors">{label}</span>
-    <span className="font-mono text-right">{value}</span>
+    <span className="font-mono text-right group-hover:translate-x-[-4px] transition-transform duration-300">{value}</span>
   </div>
 );
 
 const ListBlock = ({ items, boldPrefix = false }: { items: string[], boldPrefix?: boolean }) => (
   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
     {items.map((item, i) => {
-      // Check if item has a colon for bolding the prefix (Show Name: Episode)
       const parts = item.split(":");
       const hasSeparator = parts.length > 1;
       
       return (
-        <li key={i} className="flex items-start gap-2 text-base">
-          <span className="text-primary/50 mt-1.5 text-[10px]">●</span>
+        <li key={i} className="flex items-start gap-2 text-base group hover:text-foreground text-muted-foreground transition-colors">
+          <span className="text-primary/50 mt-1.5 text-[10px] group-hover:text-primary transition-colors">●</span>
           <span>
             {boldPrefix && hasSeparator ? (
               <>
-                <strong className="font-bold">{parts[0]}:</strong>{parts.slice(1).join(":")}
+                <strong className="font-bold text-foreground">{parts[0]}:</strong>{parts.slice(1).join(":")}
               </>
             ) : (
               item
@@ -144,6 +177,27 @@ const ListBlock = ({ items, boldPrefix = false }: { items: string[], boldPrefix?
     })}
   </ul>
 );
+
+const CopyButton = ({ content }: { content: string }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    navigator.clipboard.writeText(content);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <button 
+      onClick={handleCopy}
+      className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all p-2 hover:bg-background rounded-md border border-transparent hover:border-border"
+      title="Copy to clipboard"
+    >
+      {copied ? <Check size={16} className="text-green-500" /> : <Copy size={16} />}
+    </button>
+  );
+};
 
 // --- Data ---
 
@@ -252,6 +306,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300 relative overflow-x-hidden">
+      <ScrollProgress />
       <NoiseOverlay />
       <ThemeToggle />
       
@@ -266,9 +321,9 @@ export default function Home() {
           >
             <div className="w-8 h-8 bg-primary animate-pulse" />
             <nav className="flex gap-8 text-xs font-bold uppercase tracking-widest">
-              <a href="mailto:hello@mcthaydt.com" className="hover:text-primary hover:underline decoration-2 underline-offset-4 transition-all">Email</a>
-              <a href="#" className="hover:text-primary hover:underline decoration-2 underline-offset-4 transition-all">Twitter</a>
-              <a href="#" className="hover:text-primary hover:underline decoration-2 underline-offset-4 transition-all">GitHub</a>
+              <NavLink href="mailto:hello@mcthaydt.com">Email</NavLink>
+              <NavLink href="#">Twitter</NavLink>
+              <NavLink href="#">GitHub</NavLink>
             </nav>
           </motion.div>
 
@@ -319,8 +374,8 @@ export default function Home() {
               onClick={() => setOpenProject(openProject === index ? null : index)}
             >
               <p className="mb-6">{project.description}</p>
-              <a href={project.link} className="inline-flex items-center text-primary font-bold uppercase tracking-wider hover:gap-2 transition-all">
-                View Case Study <ArrowUpRight size={16} className="ml-1" />
+              <a href={project.link} className="inline-flex items-center text-primary font-bold uppercase tracking-wider hover:gap-2 transition-all group/link">
+                View Case Study <ArrowUpRight size={16} className="ml-1 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
               </a>
             </AccordionItem>
           ))}
@@ -350,11 +405,9 @@ export default function Home() {
               isOpen={openPrompt === index}
               onClick={() => setOpenPrompt(openPrompt === index ? null : index)}
             >
-              <div className="bg-muted/20 p-6 border border-border font-mono text-sm relative group">
-                <button className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity p-2 hover:bg-background rounded-md">
-                  <Copy size={16} />
-                </button>
-                {prompt.content}
+              <div className="bg-muted/20 p-6 border border-border font-mono text-sm relative group hover:border-primary/30 transition-colors">
+                <CopyButton content={prompt.content} />
+                <p className="leading-relaxed whitespace-pre-wrap">{prompt.content}</p>
               </div>
             </AccordionItem>
           ))}
