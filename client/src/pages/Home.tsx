@@ -120,7 +120,7 @@ const FactItem = ({ label, value }: { label: string, value: string }) => (
   </div>
 );
 
-const ListBlock = ({ items }: { items: string[] }) => (
+const ListBlock = ({ items, boldPrefix = false }: { items: string[], boldPrefix?: boolean }) => (
   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
     {items.map((item, i) => {
       // Check if item has a colon for bolding the prefix (Show Name: Episode)
@@ -131,7 +131,7 @@ const ListBlock = ({ items }: { items: string[] }) => (
         <li key={i} className="flex items-start gap-2 text-base">
           <span className="text-primary/50 mt-1.5 text-[10px]">●</span>
           <span>
-            {hasSeparator ? (
+            {boldPrefix && hasSeparator ? (
               <>
                 <strong className="font-bold">{parts[0]}:</strong>{parts.slice(1).join(":")}
               </>
@@ -192,22 +192,22 @@ const services = [
 const prompts = [
   {
     title: "VC Investment Memo",
-    subtitle: "GPT-4o",
+    subtitle: "Venture Capital",
     content: "Act as a partner at Sequoia Capital. Write a comprehensive investment memo for a Seed stage B2B SaaS startup. Structure it with: Executive Summary, Market Opportunity (TAM/SAM/SOM), Product/Technology, Competition, Go-to-Market Strategy, Team, and Key Risks. Focus on 'Why Now?' and 'Why This Team?'. Use concise, professional language."
   },
   {
     title: "SaaS Landing Page Copy",
-    subtitle: "Claude 3.5",
+    subtitle: "Growth Marketing",
     content: "You are a world-class copywriter specializing in conversion rate optimization. Write the copy for a high-converting landing page for a developer tool. Use the PAS (Problem-Agitation-Solution) framework. Include: Headline (Value Prop), Subheadline (How it works), 3 Key Benefits with icons, Social Proof section, and a compelling CTA. Tone: Technical, confident, no-fluff."
   },
   {
     title: "Cold Outreach Sequencer",
-    subtitle: "GPT-4o",
+    subtitle: "Sales",
     content: "Draft a 4-email cold outreach sequence targeting CTOs of Series B fintech companies. Goal: Schedule a 15-minute demo of a new API security tool. Email 1: Personalized observation + value prop. Email 2: Case study/Social proof. Email 3: Overcoming objection (implementation time). Email 4: Break-up email. Keep each email under 100 words."
   },
   {
     title: "Technical Co-founder Hunter",
-    subtitle: "Perplexity",
+    subtitle: "Recruiting",
     content: "Find me potential technical co-founders in San Francisco who have: 1) Ex-Stripe or Ex-Coinbase engineering experience, 2) Interest in Rust and WebAssembly, 3) Recently left their job or started a side project in the last 6 months. Search GitHub, Twitter, and LinkedIn public posts."
   }
 ];
@@ -412,7 +412,7 @@ export default function Home() {
                 isOpen={openFact === "episodes"}
                 onClick={() => setOpenFact(openFact === "episodes" ? null : "episodes")}
               >
-                <ListBlock items={funFacts.episodes} />
+                <ListBlock items={funFacts.episodes} boldPrefix={true} />
               </AccordionItem>
             </div>
           </Section>
