@@ -426,7 +426,12 @@ export default function Home() {
               <VisualStat label="Agreeableness" value={55} />
               <VisualStat label="Neuroticism" value={35} />
               
-              <div className="mt-8 grid grid-cols-2 gap-4">
+              <div className="mt-8 grid grid-cols-2 gap-4 mb-6">
+                <FactItem label="Myers-Briggs" value="INTJ-A" />
+                <FactItem label="Enneagram" value="Type 5w6" />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
                 <FactItem label="Sun" value="Scorpio" />
                 <FactItem label="Moon" value="Aquarius" />
                 <FactItem label="Rising" value="Virgo" />
