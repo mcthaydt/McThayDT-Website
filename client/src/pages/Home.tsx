@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { Plus, Minus, ArrowUpRight, Moon, Sun, Twitter, Copy, Check } from "lucide-react";
 import { AsciiGlobe } from "@/components/ui/ascii-globe";
-import { useQuery } from "@tanstack/react-query";
-import { Project, Service, Prompt, FunFact, PersonalStat } from "@shared/schema";
 
 // --- Components ---
 
@@ -201,40 +199,110 @@ const CopyButton = ({ content }: { content: string }) => {
   );
 };
 
+// --- Data ---
+
+const projects = [
+  {
+    title: "VentureScout",
+    subtitle: "AI Due Diligence",
+    description: "An automated due diligence engine for early-stage investors. Aggregates data from 50+ sources to generate comprehensive risk reports in seconds. Used by 3 Tier-1 VCs.",
+    link: "#"
+  },
+  {
+    title: "Nebula Protocol",
+    subtitle: "Decentralized Identity",
+    description: "Self-sovereign identity layer built on Solana. Focused on privacy-preserving KYC for DeFi applications. $1.2M seed round raised.",
+    link: "#"
+  },
+  {
+    title: "Chronos",
+    subtitle: "Productivity OS",
+    description: "A minimalist calendar and task manager that adapts to your energy levels. Built with React, Rust, and sheer willpower. 10k+ MAU.",
+    link: "#"
+  },
+  {
+    title: "Hyperion",
+    subtitle: "Design System",
+    description: "A comprehensive design system for enterprise applications. Focused on accessibility, performance, and developer experience. Open source.",
+    link: "#"
+  }
+];
+
+const services = [
+  {
+    title: "Product Strategy",
+    description: "From zero to one. I help founders refine their vision, define MVPs, and find product-market fit through rapid iteration and user feedback loops."
+  },
+  {
+    title: "Full-Stack Design",
+    description: "I don't just make things pretty. I build systems. Design systems, component libraries, and high-fidelity prototypes that bridge the gap between design and engineering."
+  },
+  {
+    title: "Technical Advisory",
+    description: "Bridging the gap for non-technical founders. Architecture review, tech stack selection, and hiring support for founding engineering teams."
+  }
+];
+
+const prompts = [
+  {
+    title: "VC Investment Memo",
+    subtitle: "Venture Capital",
+    content: "Act as a partner at Sequoia Capital. Write a comprehensive investment memo for a Seed stage B2B SaaS startup. Structure it with: Executive Summary, Market Opportunity (TAM/SAM/SOM), Product/Technology, Competition, Go-to-Market Strategy, Team, and Key Risks. Focus on 'Why Now?' and 'Why This Team?'. Use concise, professional language."
+  },
+  {
+    title: "SaaS Landing Page Copy",
+    subtitle: "Growth Marketing",
+    content: "You are a world-class copywriter specializing in conversion rate optimization. Write the copy for a high-converting landing page for a developer tool. Use the PAS (Problem-Agitation-Solution) framework. Include: Headline (Value Prop), Subheadline (How it works), 3 Key Benefits with icons, Social Proof section, and a compelling CTA. Tone: Technical, confident, no-fluff."
+  },
+  {
+    title: "Cold Outreach Sequencer",
+    subtitle: "Sales",
+    content: "Draft a 4-email cold outreach sequence targeting CTOs of Series B fintech companies. Goal: Schedule a 15-minute demo of a new API security tool. Email 1: Personalized observation + value prop. Email 2: Case study/Social proof. Email 3: Overcoming objection (implementation time). Email 4: Break-up email. Keep each email under 100 words."
+  },
+  {
+    title: "Technical Co-founder Hunter",
+    subtitle: "Recruiting",
+    content: "Find me potential technical co-founders in San Francisco who have: 1) Ex-Stripe or Ex-Coinbase engineering experience, 2) Interest in Rust and WebAssembly, 3) Recently left their job or started a side project in the last 6 months. Search GitHub, Twitter, and LinkedIn public posts."
+  }
+];
+
+const funFacts = {
+  games: [
+    "Persona 4 (PS2)", "Ocarina of Time", "Smash Ultimate", "Spyro 3", 
+    "Animal Crossing: Wild World", "Super Mario 64 DS", "Uncharted 2", "Arkham City", 
+    "Soulcalibur (Dreamcast)", "Call of Duty: Mobile", "Little Big Planet 2", "Minecraft", 
+    "Warhawk", "Star Wars: Battlefront 2 (PSP)", "League of Legends", "Balatro", 
+    "GTA San Andreas", "Guitar Hero 3", "Burnout Paradise", "Super Mario Bros 3"
+  ],
+  films: [
+    "Parasite", "Inception", "Melancholy of Haruhi Suzamiya", "Paris is Burning", 
+    "You’re Next", "Mission Impossible: Fallout", "Hereditary", "Dune 2", "Anora", "The Departed"
+  ],
+  tv: [
+    "The Sopranos", "Clannad: After Story", "Toradora", "The Wire", "Breaking Bad", 
+    "Madoka Magica", "Steins;Gate", "Death Note", "Boy Meets World", "Dexter’s Laboratory", 
+    "Severance", "Chapelle Show", "The Boondocks", "The Knick", "Insatiable", "The Entire Arrowverse"
+  ],
+  artists: [
+    "Michael Jackson", "Deftones", "Radiohead", "Sade", "Lana Del Rey", 
+    "Kali Uchis", "Whirr", "OutKast", "Men I Trust", "Roy Ayers", "Justin Timberlake"
+  ],
+  hobbies: [
+    "Frisbee", "TouchTunes DJ’ing", "Darts", "Options and Meme Coin Trading", "Competitive Multiplayer Games"
+  ],
+  episodes: [
+    "Breaking Bad: Ozymandias", "The Flash: Last Temptation of Barry Allen", "Supergirl: Falling", 
+    "Sopranos: Long Term Parking", "Sopranos: Whitecaps", "The Wire: Final Grades", 
+    "Avatar The Last Airbender: Ember Island Players", "Clannad After Story: White Darkness", 
+    "Bakemonogatri: Tsubasa Cat, Part 2"
+  ]
+};
+
 export default function Home() {
   const [openProject, setOpenProject] = useState<number | null>(0);
   const [openService, setOpenService] = useState<number | null>(null);
   const [openPrompt, setOpenPrompt] = useState<number | null>(null);
   const [openFact, setOpenFact] = useState<string | null>("games");
-
-  // --- Data Fetching ---
-  const { data: projects = [], isLoading: loadingProjects } = useQuery<Project[]>({ queryKey: ['/api/projects'] });
-  const { data: services = [], isLoading: loadingServices } = useQuery<Service[]>({ queryKey: ['/api/services'] });
-  const { data: prompts = [], isLoading: loadingPrompts } = useQuery<Prompt[]>({ queryKey: ['/api/prompts'] });
-  const { data: funFactsData = [], isLoading: loadingFacts } = useQuery<FunFact[]>({ queryKey: ['/api/fun-facts'] });
-  const { data: stats = [], isLoading: loadingStats } = useQuery<PersonalStat[]>({ queryKey: ['/api/personal-stats'] });
-
-  const isLoading = loadingProjects || loadingServices || loadingPrompts || loadingFacts || loadingStats;
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-background text-foreground flex items-center justify-center">
-         <div className="w-8 h-8 bg-primary animate-pulse" />
-      </div>
-    );
-  }
-
-  // Process stats
-  const big5 = stats.filter(s => s.category === 'big5');
-  const mbti = stats.filter(s => s.category === 'mbti');
-  const astrology = stats.filter(s => s.category === 'astrology');
-
-  // Process fun facts into category map
-  const funFacts = funFactsData.reduce((acc, fact) => {
-    if (!acc[fact.category]) acc[fact.category] = [];
-    acc[fact.category].push(fact.content);
-    return acc;
-  }, {} as Record<string, string[]>);
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300 relative overflow-x-hidden">
@@ -299,7 +367,7 @@ export default function Home() {
         <Section title="Selected Works">
           {projects.map((project, index) => (
             <AccordionItem
-              key={project.id}
+              key={index}
               title={project.title}
               subtitle={project.subtitle}
               isOpen={openProject === index}
@@ -317,7 +385,7 @@ export default function Home() {
         <Section title="Services">
           {services.map((service, index) => (
             <AccordionItem
-              key={service.id}
+              key={index}
               title={service.title}
               isOpen={openService === index}
               onClick={() => setOpenService(openService === index ? null : index)}
@@ -331,7 +399,7 @@ export default function Home() {
         <Section title="Prompt Library">
           {prompts.map((prompt, index) => (
             <AccordionItem
-              key={prompt.id}
+              key={index}
               title={prompt.title}
               subtitle={prompt.subtitle}
               isOpen={openPrompt === index}
@@ -351,36 +419,77 @@ export default function Home() {
           {/* Fact Sheet */}
           <Section title="Fact Sheet" className="mb-0">
             <div className="space-y-0">
-              {Object.entries(funFacts).map(([category, items]) => (
-                <AccordionItem
-                  key={category}
-                  title={`Favorite ${category.charAt(0).toUpperCase() + category.slice(1)}`}
-                  isOpen={openFact === category}
-                  onClick={() => setOpenFact(openFact === category ? null : category)}
-                >
-                  <ListBlock items={items} boldPrefix={category === 'episodes'} />
-                </AccordionItem>
-              ))}
+              <AccordionItem
+                title="Favorite Games"
+                isOpen={openFact === "games"}
+                onClick={() => setOpenFact(openFact === "games" ? null : "games")}
+              >
+                <ListBlock items={funFacts.games} />
+              </AccordionItem>
+
+              <AccordionItem
+                title="Favorite Films"
+                isOpen={openFact === "films"}
+                onClick={() => setOpenFact(openFact === "films" ? null : "films")}
+              >
+                <ListBlock items={funFacts.films} />
+              </AccordionItem>
+
+              <AccordionItem
+                title="Favorite TV Shows"
+                isOpen={openFact === "tv"}
+                onClick={() => setOpenFact(openFact === "tv" ? null : "tv")}
+              >
+                <ListBlock items={funFacts.tv} />
+              </AccordionItem>
+
+              <AccordionItem
+                title="Favorite Artists"
+                isOpen={openFact === "artists"}
+                onClick={() => setOpenFact(openFact === "artists" ? null : "artists")}
+              >
+                <ListBlock items={funFacts.artists} />
+              </AccordionItem>
+
+              <AccordionItem
+                title="Hobbies"
+                isOpen={openFact === "hobbies"}
+                onClick={() => setOpenFact(openFact === "hobbies" ? null : "hobbies")}
+              >
+                <ListBlock items={funFacts.hobbies} />
+              </AccordionItem>
+
+              <AccordionItem
+                title="Favorite Episodes"
+                isOpen={openFact === "episodes"}
+                onClick={() => setOpenFact(openFact === "episodes" ? null : "episodes")}
+              >
+                <ListBlock items={funFacts.episodes} boldPrefix={true} />
+              </AccordionItem>
             </div>
           </Section>
 
           {/* Psychographics */}
           <Section title="Psychographics">
             <div className="space-y-2">
-              {big5.map(stat => (
-                <VisualStat key={stat.id} label={stat.label} value={stat.valueNum || 0} />
-              ))}
+              <VisualStat label="Openness" value={96} />
+              <VisualStat label="Conscientiousness" value={92} />
+              <VisualStat label="Extraversion" value={45} />
+              <VisualStat label="Agreeableness" value={55} />
+              <VisualStat label="Neuroticism" value={35} />
               
               <div className="mt-8 grid grid-cols-2 gap-4 mb-6">
-                {mbti.map(stat => (
-                  <FactItem key={stat.id} label={stat.label} value={stat.valueText || ''} />
-                ))}
+                <FactItem label="Myers-Briggs" value="INTJ-A" />
+                <FactItem label="Enneagram" value="Type 5w6" />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                {astrology.map(stat => (
-                  <FactItem key={stat.id} label={stat.label} value={stat.valueText || ''} />
-                ))}
+                <FactItem label="Sun" value="Scorpio" />
+                <FactItem label="Moon" value="Aquarius" />
+                <FactItem label="Rising" value="Virgo" />
+                <FactItem label="Mercury" value="Scorpio" />
+                <FactItem label="Venus" value="Capricorn" />
+                <FactItem label="Mars" value="Virgo" />
               </div>
             </div>
           </Section>
