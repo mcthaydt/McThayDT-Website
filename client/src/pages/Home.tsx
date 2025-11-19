@@ -122,12 +122,26 @@ const FactItem = ({ label, value }: { label: string, value: string }) => (
 
 const ListBlock = ({ items }: { items: string[] }) => (
   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
-    {items.map((item, i) => (
-      <li key={i} className="flex items-start gap-2 text-base">
-        <span className="text-primary/50 mt-1.5 text-[10px]">●</span>
-        <span>{item}</span>
-      </li>
-    ))}
+    {items.map((item, i) => {
+      // Check if item has a colon for bolding the prefix (Show Name: Episode)
+      const parts = item.split(":");
+      const hasSeparator = parts.length > 1;
+      
+      return (
+        <li key={i} className="flex items-start gap-2 text-base">
+          <span className="text-primary/50 mt-1.5 text-[10px]">●</span>
+          <span>
+            {hasSeparator ? (
+              <>
+                <strong className="font-bold">{parts[0]}:</strong>{parts.slice(1).join(":")}
+              </>
+            ) : (
+              item
+            )}
+          </span>
+        </li>
+      );
+    })}
   </ul>
 );
 
@@ -327,7 +341,7 @@ export default function Home() {
           ))}
         </Section>
 
-        {/* Prompt Library - Now as Accordions */}
+        {/* Prompt Library */}
         <Section title="Prompt Library">
           {prompts.map((prompt, index) => (
             <AccordionItem
@@ -350,7 +364,7 @@ export default function Home() {
         {/* Info Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-12">
           
-          {/* Fact Sheet - Updated with real data */}
+          {/* Fact Sheet */}
           <Section title="Fact Sheet" className="mb-0">
             <div className="space-y-0">
               <AccordionItem
@@ -409,10 +423,16 @@ export default function Home() {
               <VisualStat label="Openness" value={96} />
               <VisualStat label="Conscientiousness" value={92} />
               <VisualStat label="Extraversion" value={45} />
-              <div className="mt-8 space-y-1">
-                <FactItem label="Myers-Briggs" value="INTJ-A" />
-                <FactItem label="Enneagram" value="Type 5w6" />
-                <FactItem label="Astrology" value="Scorpio Sun" />
+              <VisualStat label="Agreeableness" value={55} />
+              <VisualStat label="Neuroticism" value={35} />
+              
+              <div className="mt-8 grid grid-cols-2 gap-4">
+                <FactItem label="Sun" value="Scorpio" />
+                <FactItem label="Moon" value="Aquarius" />
+                <FactItem label="Rising" value="Virgo" />
+                <FactItem label="Mercury" value="Scorpio" />
+                <FactItem label="Venus" value="Capricorn" />
+                <FactItem label="Mars" value="Virgo" />
               </div>
             </div>
           </Section>
@@ -437,7 +457,6 @@ export default function Home() {
                  <a href="#" className="h-12 w-12 flex items-center justify-center border border-border hover:bg-foreground hover:text-background transition-colors rounded-full">
                    <Twitter size={20} />
                  </a>
-                 {/* We can reuse the theme toggle button for visual consistency or keep it fixed */}
                </div>
             </div>
           </div>
