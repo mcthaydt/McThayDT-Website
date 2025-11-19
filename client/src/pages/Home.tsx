@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus, ArrowUpRight, Moon, Sun, Twitter } from "lucide-react";
-import wireframeImg from '@assets/generated_images/Abstract_blue_wireframe_geometric_shape_on_white_d4f14db3.png';
+import { Globe } from "@/components/ui/globe";
 
 // --- Components ---
 
@@ -205,8 +205,8 @@ export default function Home() {
             </nav>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-end">
-            <div className="lg:col-span-2">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
+            <div className="lg:col-span-2 relative z-20">
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -229,19 +229,15 @@ export default function Home() {
               </motion.div>
             </div>
             
-            {/* Abstract Hero Image */}
+            {/* 3D Spinning Globe */}
             <motion.div 
-              initial={{ opacity: 0, scale: 0.9, rotate: -10 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.6, duration: 0.8 }}
-              className="hidden lg:block relative"
+              className="hidden lg:block relative h-[400px] w-[400px] -mr-24"
             >
-              <div className="absolute inset-0 bg-primary/10 blur-3xl rounded-full" />
-              <img 
-                src={wireframeImg} 
-                alt="Abstract geometric structure" 
-                className="relative z-10 w-full h-auto mix-blend-multiply dark:mix-blend-screen opacity-80 grayscale hover:grayscale-0 transition-all duration-700"
-              />
+              <div className="absolute inset-0 bg-primary/5 blur-3xl rounded-full" />
+              <Globe className="relative z-10" />
             </motion.div>
           </div>
         </header>
