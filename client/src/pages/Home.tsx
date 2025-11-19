@@ -242,7 +242,7 @@ export default function Home() {
           >
             <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Design Engineer</span>
             <nav className="flex gap-8 text-xs font-bold uppercase tracking-widest">
-              <NavLink href="mailto:hello@mcthaydt.com">Email</NavLink>
+              <NavLink href="https://calendly.com/mcthaydt">Book</NavLink>
               <NavLink href="#">LinkedIn</NavLink>
               <NavLink href="#">Substack</NavLink>
             </nav>
@@ -419,8 +419,8 @@ export default function Home() {
               </p>
             </div>
             <div className="flex flex-col items-start justify-center space-y-4">
-               <a href="mailto:hello@mcthaydt.com" className="group flex items-center gap-4 text-2xl sm:text-3xl font-medium hover:text-primary transition-colors">
-                 hello@mcthaydt.com 
+               <a href="https://calendly.com/mcthaydt" className="group flex items-center gap-4 text-2xl sm:text-3xl font-medium hover:text-primary transition-colors">
+                 calendly.com/mcthaydt 
                  <ArrowUpRight className="opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all" />
                </a>
                <div className="flex gap-6 mt-8">
