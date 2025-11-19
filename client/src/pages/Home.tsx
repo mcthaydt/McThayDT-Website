@@ -224,14 +224,14 @@ export default function Home() {
       
       <div className="max-w-screen-lg mx-auto px-6 py-12 sm:py-24 relative z-10">
         {/* Header */}
-        <header className="mb-40 relative min-h-[50vh] flex flex-col justify-center">
+        <header className="mb-40 pt-8 relative flex flex-col gap-16">
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="flex justify-between items-start mb-24 relative z-20"
+            className="flex flex-col gap-6 items-start w-full border-t border-border pt-6"
           >
-            <div className="w-8 h-8 bg-primary animate-pulse" />
+            <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Design Engineer</span>
             <nav className="flex gap-8 text-xs font-bold uppercase tracking-widest">
               <NavLink href="mailto:hello@mcthaydt.com">Email</NavLink>
               <NavLink href="#">Twitter</NavLink>
@@ -239,63 +239,29 @@ export default function Home() {
             </nav>
           </motion.div>
 
-          <div className="relative">
-            {/* ASCII Wireframe Globe - Positioned Absolutely Behind */}
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.15 }}
-              transition={{ delay: 0.8, duration: 1.5 }}
-              className="absolute -top-20 -right-20 sm:-right-40 w-[100%] sm:w-[600px] h-[600px] flex items-center justify-center z-0 pointer-events-none mix-blend-multiply dark:mix-blend-screen"
+          <div className="space-y-12 max-w-3xl">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             >
-              <AsciiGlobe className="text-primary dark:text-primary scale-[1.5] sm:scale-[1.8] origin-center" />
+              <p className="font-mono text-sm tracking-[0.2em] text-primary mb-8">HEY, I'M</p>
+              <h1 className="text-5xl sm:text-6xl font-serif font-medium tracking-tight text-foreground leading-[1.1]">
+                Dawson.
+              </h1>
             </motion.div>
 
-            <div className="relative z-10 max-w-4xl">
-              <div className="relative mb-12 select-none cursor-default">
-                {/* First line: HEY, I'M */}
-                <motion.div
-                  initial={{ x: -50, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative z-20"
-                >
-                  <h1 className="text-6xl sm:text-8xl md:text-9xl font-serif font-black tracking-tighter leading-[0.8] mix-blend-exclusion">
-                    <span className="inline-block hover:text-primary transition-colors duration-300">HEY,</span>
-                    <br />
-                    <span className="inline-block ml-12 sm:ml-24 italic font-light hover:text-primary transition-colors duration-300">I'M</span>
-                  </h1>
-                </motion.div>
-
-                {/* Second line: DAWSON - Solid & Offset */}
-                <motion.div
-                  initial={{ x: 50, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative z-10 -mt-4 sm:-mt-8 md:-mt-12 ml-4 sm:ml-16"
-                >
-                  <h1 className="text-[15vw] sm:text-9xl md:text-[10rem] font-mono font-bold tracking-tight leading-[0.8] text-foreground select-none">
-                    <motion.span 
-                      className="inline-block hover:text-primary transition-all duration-300 hover:skew-x-12 origin-bottom cursor-pointer"
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      DAWSON.
-                    </motion.span>
-                  </h1>
-                </motion.div>
-              </div>
-
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-                className="max-w-xl space-y-6 text-xl sm:text-2xl leading-relaxed font-light ml-2 sm:ml-4"
-              >
-                <p>
-                  Design Engineer for the <span className="text-primary font-medium">ambitious few</span>. 
-                  Crafting high-performance interfaces for elite VCs and accelerators.
-                </p>
-              </motion.div>
-            </div>
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="max-w-xl text-xl sm:text-2xl leading-relaxed font-light text-muted-foreground"
+            >
+              <p>
+                Building <span className="text-foreground font-normal">high-performance</span> interfaces for elite VCs and accelerators. 
+                Focused on clarity, precision, and speed.
+              </p>
+            </motion.div>
           </div>
         </header>
 
