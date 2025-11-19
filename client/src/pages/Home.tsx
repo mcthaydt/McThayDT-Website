@@ -367,7 +367,7 @@ export default function Home() {
             className="flex flex-col gap-6 items-start w-full border-t border-border pt-6"
           >
             <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-              Finance Bro + Tech Bro + Art H**
+              Finance Bro + Tech Bro + Artist
             </span>
             <nav className="flex gap-8 text-xs font-bold uppercase tracking-widest">
               <NavLink href="mailto:mcthaydawson@gmail.com">Email</NavLink>
