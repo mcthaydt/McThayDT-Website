@@ -207,14 +207,61 @@ export default function Home() {
   const [openPrompt, setOpenPrompt] = useState<number | null>(null);
   const [openFact, setOpenFact] = useState<string | null>("games");
 
-  const { data: projects } = useQuery<Project[]>({ queryKey: ["/api/projects"] });
-  const { data: services } = useQuery<Service[]>({ queryKey: ["/api/services"] });
-  const { data: prompts } = useQuery<Prompt[]>({ queryKey: ["/api/prompts"] });
-  const { data: funFacts } = useQuery<Record<string, string[]>>({ queryKey: ["/api/facts"] });
-  const { data: psychographics } = useQuery<Psychographic[]>({ queryKey: ["/api/psychographics"] });
+  const { data: projects, isError: isProjectsError } = useQuery<Project[]>({ 
+    queryKey: ["/api/projects"],
+    queryFn: async () => {
+      const res = await fetch("/api/projects");
+      if (!res.ok) throw new Error("Failed to fetch projects");
+      return res.json();
+    }
+  });
+  const { data: services, isError: isServicesError } = useQuery<Service[]>({ 
+    queryKey: ["/api/services"],
+    queryFn: async () => {
+      const res = await fetch("/api/services");
+      if (!res.ok) throw new Error("Failed to fetch services");
+      return res.json();
+    }
+  });
+  const { data: prompts, isError: isPromptsError } = useQuery<Prompt[]>({ 
+    queryKey: ["/api/prompts"],
+    queryFn: async () => {
+      const res = await fetch("/api/prompts");
+      if (!res.ok) throw new Error("Failed to fetch prompts");
+      return res.json();
+    }
+  });
+  const { data: funFacts, isError: isFactsError } = useQuery<Record<string, string[]>>({ 
+    queryKey: ["/api/facts"],
+    queryFn: async () => {
+      const res = await fetch("/api/facts");
+      if (!res.ok) throw new Error("Failed to fetch facts");
+      return res.json();
+    }
+  });
+  const { data: psychographics, isError: isPsychographicsError } = useQuery<Psychographic[]>({ 
+    queryKey: ["/api/psychographics"],
+    queryFn: async () => {
+      const res = await fetch("/api/psychographics");
+      if (!res.ok) throw new Error("Failed to fetch psychographics");
+      return res.json();
+    }
+  });
 
   const stats = psychographics?.filter(p => p.type === "stat") || [];
   const facts = psychographics?.filter(p => p.type === "fact") || [];
+
+  if (isProjectsError || isServicesError || isPromptsError || isFactsError || isPsychographicsError) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
+        <div className="text-red-500 text-xl font-mono border border-red-500 p-4 bg-red-500/10">
+          SYSTEM_MALFUNCTION: DATA_CORRUPTION_DETECTED
+          <br/>
+          <span className="text-sm opacity-70">Please refresh the neural link.</span>
+        </div>
+      </div>
+    );
+  }
 
   if (!projects || !services || !prompts || !funFacts || !psychographics) {
     return (
