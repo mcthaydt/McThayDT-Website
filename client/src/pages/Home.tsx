@@ -266,19 +266,19 @@ export default function Home() {
                   </h1>
                 </motion.div>
 
-                {/* Second line: MCTHAY - Outlined & Offset */}
+                {/* Second line: DAWSON - Solid & Offset */}
                 <motion.div
                   initial={{ x: 50, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                   className="relative z-10 -mt-4 sm:-mt-8 md:-mt-12 ml-4 sm:ml-16"
                 >
-                  <h1 className="text-[15vw] sm:text-9xl md:text-[10rem] font-mono font-bold tracking-tight leading-[0.8] text-outline select-none">
+                  <h1 className="text-[15vw] sm:text-9xl md:text-[10rem] font-mono font-bold tracking-tight leading-[0.8] text-foreground select-none">
                     <motion.span 
-                      className="inline-block hover:text-primary hover:text-opacity-10 transition-all duration-300 hover:skew-x-12 origin-bottom cursor-pointer text-outline"
+                      className="inline-block hover:text-primary transition-all duration-300 hover:skew-x-12 origin-bottom cursor-pointer"
                       whileHover={{ scale: 1.05 }}
                     >
-                      MCTHAY.
+                      DAWSON.
                     </motion.span>
                   </h1>
                 </motion.div>
@@ -457,7 +457,7 @@ export default function Home() {
           </div>
           
           <footer className="flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-muted-foreground mt-24">
-            <span>© 2025 McThayDT // Design Engineer</span>
+            <span>© 2025 Dawson // Design Engineer</span>
             <span>San Francisco, CA // 37.7749° N, 122.4194° W</span>
           </footer>
         </section>
