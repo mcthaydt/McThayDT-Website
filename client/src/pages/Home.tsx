@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
-import { Plus, Minus, ArrowUpRight, Moon, Sun, Linkedin, Twitter, Instagram, Github, Copy, Check } from "lucide-react";
+import { Plus, Minus, ArrowUpRight, Moon, Sun, Linkedin, Twitter, Instagram, Github, Copy, Check, Lock } from "lucide-react";
 import { AsciiGlobe } from "@/components/ui/ascii-globe";
 
 // Import static data directly
@@ -285,9 +285,15 @@ export default function Home() {
               onClick={() => setOpenProject(openProject === index ? null : index)}
             >
               <p className="mb-6">{project.description}</p>
-              <a href={project.link} className="inline-flex items-center text-primary font-bold uppercase tracking-wider hover:gap-2 transition-all group/link">
-                View Case Study <ArrowUpRight size={16} className="ml-1 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
-              </a>
+              {project.id === 1 ? (
+                <div className="inline-flex items-center text-muted-foreground font-bold uppercase tracking-wider cursor-not-allowed opacity-70">
+                  Locked <Lock size={16} className="ml-2" />
+                </div>
+              ) : (
+                <a href={project.link} className="inline-flex items-center text-primary font-bold uppercase tracking-wider hover:gap-2 transition-all group/link">
+                  View Project <ArrowUpRight size={16} className="ml-1 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
+                </a>
+              )}
             </AccordionItem>
           ))}
         </Section>
