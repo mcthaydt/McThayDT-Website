@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
-import { Plus, Minus, ArrowUpRight, Moon, Sun, Twitter, Copy, Check } from "lucide-react";
+import { Plus, Minus, ArrowUpRight, Moon, Sun, Linkedin, Copy, Check } from "lucide-react";
 import { AsciiGlobe } from "@/components/ui/ascii-globe";
 
 // Import static data directly
@@ -243,8 +243,8 @@ export default function Home() {
             <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Design Engineer</span>
             <nav className="flex gap-8 text-xs font-bold uppercase tracking-widest">
               <NavLink href="mailto:hello@mcthaydt.com">Email</NavLink>
-              <NavLink href="#">Twitter</NavLink>
-              <NavLink href="#">GitHub</NavLink>
+              <NavLink href="#">LinkedIn</NavLink>
+              <NavLink href="#">Substack</NavLink>
             </nav>
           </motion.div>
 
@@ -425,7 +425,7 @@ export default function Home() {
                </a>
                <div className="flex gap-6 mt-8">
                  <a href="#" className="h-12 w-12 flex items-center justify-center border border-border hover:bg-foreground hover:text-background transition-colors rounded-full">
-                   <Twitter size={20} />
+                   <Linkedin size={20} />
                  </a>
                </div>
             </div>
