@@ -17,15 +17,25 @@
 }
 
 :root {
-  --background: 0 0% 98%; /* #fafafa - Very light grey/off-white */
-  --foreground: 0 0% 9%; /* #171717 - Sharp black */
-  --primary: 240 100% 50%; /* #0000ff - Electric Blue (Dris style) */
+  --background: 0 0% 98%; /* #fafafa */
+  --foreground: 0 0% 9%; /* #171717 */
+  --primary: 240 100% 50%; /* #0000ff */
   --primary-foreground: 0 0% 100%;
   --muted: 0 0% 90%;
   --muted-foreground: 0 0% 40%;
-  --border: 0 0% 90%;
+  --border: 0 0% 85%;
   
-  --radius: 0px; /* Brutalist = sharp corners */
+  --radius: 0px;
+}
+
+.dark {
+  --background: 0 0% 5%; /* #0d0d0d */
+  --foreground: 0 0% 98%;
+  --primary: 240 100% 60%; /* Slightly lighter blue for dark mode */
+  --primary-foreground: 0 0% 100%;
+  --muted: 0 0% 15%;
+  --muted-foreground: 0 0% 60%;
+  --border: 0 0% 20%;
 }
 
 @layer base {
@@ -37,7 +47,6 @@
     font-feature-settings: "ss01", "ss02", "cv01", "cv02";
   }
   
-  /* Custom selection color */
   ::selection {
     @apply bg-primary/20 text-primary;
   }
@@ -46,5 +55,17 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  
+  .bg-noise {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   }
 }
