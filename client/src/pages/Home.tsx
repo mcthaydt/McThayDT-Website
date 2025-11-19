@@ -10,6 +10,15 @@ import { prompts } from "../data/prompts";
 import { funFacts } from "../data/facts";
 import { psychographics } from "../data/psychographics";
 
+// --- Constants ---
+
+const SPACING = {
+  container: "max-w-screen-lg mx-auto px-6 md:px-12 py-12 sm:py-24",
+  sectionMb: "mb-24 sm:mb-32",
+  sectionGap: "space-y-16", 
+  headerMb: "mb-32 sm:mb-40",
+};
+
 // --- Components ---
 
 const NoiseOverlay = () => (
@@ -77,8 +86,8 @@ const NavLink = ({ href, children }: { href: string, children: React.ReactNode }
   );
 };
 
-const Section = ({ title, children, className = "" }: { title: string, children: React.ReactNode, className?: string }) => (
-  <section className={`mb-32 ${className}`}>
+const Section = ({ title, children, className = "", noMargin = false }: { title: string, children: React.ReactNode, className?: string, noMargin?: boolean }) => (
+  <section className={`${noMargin ? '' : SPACING.sectionMb} ${className}`}>
     <motion.div 
       initial={{ opacity: 0, x: -20 }}
       whileInView={{ opacity: 1, x: 0 }}
@@ -222,9 +231,9 @@ export default function Home() {
       <NoiseOverlay />
       <ThemeToggle />
       
-      <div className="max-w-screen-lg mx-auto px-6 py-12 sm:py-24 relative z-10">
+      <div className={SPACING.container}>
         {/* Header */}
-        <header className="mb-40 pt-8 relative flex flex-col gap-16">
+        <header className={`${SPACING.headerMb} pt-8 relative flex flex-col gap-16`}>
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -316,10 +325,10 @@ export default function Home() {
         </Section>
 
         {/* Info Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-12">
+        <div className={`grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-12 ${SPACING.sectionMb}`}>
           
           {/* Fact Sheet */}
-          <Section title="Fact Sheet" className="mb-0">
+          <Section title="Fact Sheet" noMargin>
             <div className="space-y-0">
               <AccordionItem
                 title="Favorite Games"
@@ -372,7 +381,7 @@ export default function Home() {
           </Section>
 
           {/* Psychographics */}
-          <Section title="Psychographics">
+          <Section title="Psychographics" noMargin>
             <div className="space-y-2">
               {stats.map((stat) => (
                 <VisualStat 
@@ -400,7 +409,7 @@ export default function Home() {
         </div>
 
         {/* Contact / Footer */}
-        <section className="mt-32 pt-12 border-t-2 border-foreground">
+        <section className="pt-12 border-t-2 border-foreground">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
               <h2 className="text-4xl font-bold uppercase tracking-tighter mb-6">Let's Build<br/>The Future.</h2>
