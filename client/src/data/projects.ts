@@ -31,13 +31,5 @@ export const projects: Project[] = [
     description: "A minimalist calendar and task manager that adapts to your energy levels. Built with React, Rust, and sheer willpower. 10k+ MAU.",
     link: "#",
     order: 3
-  },
-  {
-    id: 4,
-    title: "Hyperion",
-    subtitle: "Design System",
-    description: "A comprehensive design system for enterprise applications. Focused on accessibility, performance, and developer experience. Open source.",
-    link: "#",
-    order: 4
   }
 ];

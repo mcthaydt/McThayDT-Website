@@ -242,7 +242,7 @@ export default function Home() {
           >
             <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Design Engineer</span>
             <nav className="flex gap-8 text-xs font-bold uppercase tracking-widest">
-              <NavLink href="https://calendly.com/mcthaydt">Book</NavLink>
+              <NavLink href="mailto:mcthaydawson@gmail.com">Email</NavLink>
               <NavLink href="#">LinkedIn</NavLink>
               <NavLink href="#">Substack</NavLink>
             </nav>
