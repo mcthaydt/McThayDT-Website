@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Minus, ArrowUpRight, Moon, Sun, Twitter } from "lucide-react";
+import { Plus, Minus, ArrowUpRight, Moon, Sun, Twitter, Copy } from "lucide-react";
 import { Globe } from "@/components/ui/globe";
 
 // --- Components ---
@@ -69,11 +69,11 @@ const AccordionItem = ({ title, subtitle, children, isOpen, onClick }: { title: 
         onClick={onClick}
         className="w-full flex items-center justify-between group hover:text-primary transition-colors text-left"
       >
-        <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6">
-          <span className="text-2xl sm:text-3xl font-medium uppercase tracking-tight">{title}</span>
+        <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6 pr-4">
+          <span className="text-2xl sm:text-3xl font-medium uppercase tracking-tight leading-none">{title}</span>
           {subtitle && <span className="text-sm font-mono text-muted-foreground group-hover:text-primary/70 transition-colors">[{subtitle}]</span>}
         </div>
-        <span className="text-muted-foreground group-hover:text-primary transition-colors">
+        <span className="text-muted-foreground group-hover:text-primary transition-colors shrink-0 ml-4">
           {isOpen ? <Minus size={24} /> : <Plus size={24} />}
         </span>
       </button>
@@ -95,28 +95,6 @@ const AccordionItem = ({ title, subtitle, children, isOpen, onClick }: { title: 
     </motion.div>
   );
 };
-
-const LinkItem = ({ href, label, meta }: { href: string, label: string, meta?: string }) => (
-  <motion.a 
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="flex items-center justify-between py-4 border-b border-border group hover:bg-muted/30 transition-colors px-2 -mx-2"
-    initial={{ opacity: 0, y: 10 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-  >
-    <span className="text-lg font-medium group-hover:text-primary group-hover:translate-x-2 transition-all duration-300">{label}</span>
-    <div className="flex items-center gap-4">
-      {meta && (
-        <span className="px-2 py-1 text-[10px] uppercase tracking-wider border border-border rounded-full text-muted-foreground font-mono group-hover:border-primary/30 transition-colors">
-          {meta}
-        </span>
-      )}
-      <ArrowUpRight size={18} className="text-muted-foreground group-hover:text-primary transition-colors" />
-    </div>
-  </motion.a>
-);
 
 const VisualStat = ({ label, value, max = 100, suffix = "%" }: { label: string, value: number, max?: number, suffix?: string }) => (
   <div className="mb-6">
@@ -140,6 +118,17 @@ const FactItem = ({ label, value }: { label: string, value: string }) => (
     <span className="text-sm font-bold uppercase tracking-wider text-muted-foreground group-hover:text-primary transition-colors">{label}</span>
     <span className="font-mono text-right">{value}</span>
   </div>
+);
+
+const ListBlock = ({ items }: { items: string[] }) => (
+  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
+    {items.map((item, i) => (
+      <li key={i} className="flex items-start gap-2 text-base">
+        <span className="text-primary/50 mt-1.5 text-[10px]">●</span>
+        <span>{item}</span>
+      </li>
+    ))}
+  </ul>
 );
 
 // --- Data ---
@@ -186,9 +175,66 @@ const services = [
   }
 ];
 
+const prompts = [
+  {
+    title: "VC Investment Memo",
+    subtitle: "GPT-4o",
+    content: "Act as a partner at Sequoia Capital. Write a comprehensive investment memo for a Seed stage B2B SaaS startup. Structure it with: Executive Summary, Market Opportunity (TAM/SAM/SOM), Product/Technology, Competition, Go-to-Market Strategy, Team, and Key Risks. Focus on 'Why Now?' and 'Why This Team?'. Use concise, professional language."
+  },
+  {
+    title: "SaaS Landing Page Copy",
+    subtitle: "Claude 3.5",
+    content: "You are a world-class copywriter specializing in conversion rate optimization. Write the copy for a high-converting landing page for a developer tool. Use the PAS (Problem-Agitation-Solution) framework. Include: Headline (Value Prop), Subheadline (How it works), 3 Key Benefits with icons, Social Proof section, and a compelling CTA. Tone: Technical, confident, no-fluff."
+  },
+  {
+    title: "Cold Outreach Sequencer",
+    subtitle: "GPT-4o",
+    content: "Draft a 4-email cold outreach sequence targeting CTOs of Series B fintech companies. Goal: Schedule a 15-minute demo of a new API security tool. Email 1: Personalized observation + value prop. Email 2: Case study/Social proof. Email 3: Overcoming objection (implementation time). Email 4: Break-up email. Keep each email under 100 words."
+  },
+  {
+    title: "Technical Co-founder Hunter",
+    subtitle: "Perplexity",
+    content: "Find me potential technical co-founders in San Francisco who have: 1) Ex-Stripe or Ex-Coinbase engineering experience, 2) Interest in Rust and WebAssembly, 3) Recently left their job or started a side project in the last 6 months. Search GitHub, Twitter, and LinkedIn public posts."
+  }
+];
+
+const funFacts = {
+  games: [
+    "Persona 4 (PS2)", "Ocarina of Time", "Smash Ultimate", "Spyro 3", 
+    "Animal Crossing: Wild World", "Super Mario 64 DS", "Uncharted 2", "Arkham City", 
+    "Soulcalibur (Dreamcast)", "Call of Duty: Mobile", "Little Big Planet 2", "Minecraft", 
+    "Warhawk", "Star Wars: Battlefront 2 (PSP)", "League of Legends", "Balatro", 
+    "GTA San Andreas", "Guitar Hero 3", "Burnout Paradise", "Super Mario Bros 3"
+  ],
+  films: [
+    "Parasite", "Inception", "Melancholy of Haruhi Suzamiya", "Paris is Burning", 
+    "You’re Next", "Mission Impossible: Fallout", "Hereditary", "Dune 2", "Anora", "The Departed"
+  ],
+  tv: [
+    "The Sopranos", "Clannad: After Story", "Toradora", "The Wire", "Breaking Bad", 
+    "Madoka Magica", "Steins;Gate", "Death Note", "Boy Meets World", "Dexter’s Laboratory", 
+    "Severance", "Chapelle Show", "The Boondocks", "The Knick", "Insatiable", "The Entire Arrowverse"
+  ],
+  artists: [
+    "Michael Jackson", "Deftones", "Radiohead", "Sade", "Lana Del Rey", 
+    "Kali Uchis", "Whirr", "OutKast", "Men I Trust", "Roy Ayers", "Justin Timberlake"
+  ],
+  hobbies: [
+    "Frisbee", "TouchTunes DJ’ing", "Darts", "Options and Meme Coin Trading", "Competitive Multiplayer Games"
+  ],
+  episodes: [
+    "Breaking Bad: Ozymandias", "The Flash: Last Temptation of Barry Allen", "Supergirl: Falling", 
+    "Sopranos: Long Term Parking", "Sopranos: Whitecaps", "The Wire: Final Grades", 
+    "Avatar The Last Airbender: Ember Island Players", "Clannad After Story: White Darkness", 
+    "Bakemonogatri: Tsubasa Cat, Part 2"
+  ]
+};
+
 export default function Home() {
   const [openProject, setOpenProject] = useState<number | null>(0);
   const [openService, setOpenService] = useState<number | null>(null);
+  const [openPrompt, setOpenPrompt] = useState<number | null>(null);
+  const [openFact, setOpenFact] = useState<string | null>("games");
 
   return (
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
@@ -281,28 +327,81 @@ export default function Home() {
           ))}
         </Section>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-12">
-          {/* Prompt Library & Favorite Things */}
-          <div className="space-y-24">
-            <Section title="Prompt Library" className="mb-0">
-              <div className="space-y-0">
-                <LinkItem href="#" label="VC Investment Memo Generator" meta="GPT-4o" />
-                <LinkItem href="#" label="SaaS Landing Page Copy" meta="Claude 3.5" />
-                <LinkItem href="#" label="Cold Outreach Sequencer" meta="GPT-4o" />
-                <LinkItem href="#" label="Technical Co-founder Hunter" meta="Perplexity" />
+        {/* Prompt Library - Now as Accordions */}
+        <Section title="Prompt Library">
+          {prompts.map((prompt, index) => (
+            <AccordionItem
+              key={index}
+              title={prompt.title}
+              subtitle={prompt.subtitle}
+              isOpen={openPrompt === index}
+              onClick={() => setOpenPrompt(openPrompt === index ? null : index)}
+            >
+              <div className="bg-muted/20 p-6 border border-border font-mono text-sm relative group">
+                <button className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity p-2 hover:bg-background rounded-md">
+                  <Copy size={16} />
+                </button>
+                {prompt.content}
               </div>
-            </Section>
+            </AccordionItem>
+          ))}
+        </Section>
 
-            <Section title="Favorite Things" className="mb-0">
-              <div className="space-y-1">
-                <FactItem label="Editor" value="VS Code" />
-                <FactItem label="Typeface" value="Geist Mono" />
-                <FactItem label="Coffee" value="Pour Over" />
-                <FactItem label="City" value="Tokyo" />
-                <FactItem label="Reading" value="Snow Crash" />
-              </div>
-            </Section>
-          </div>
+        {/* Info Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-12">
+          
+          {/* Fact Sheet - Updated with real data */}
+          <Section title="Fact Sheet" className="mb-0">
+            <div className="space-y-0">
+              <AccordionItem
+                title="Favorite Games"
+                isOpen={openFact === "games"}
+                onClick={() => setOpenFact(openFact === "games" ? null : "games")}
+              >
+                <ListBlock items={funFacts.games} />
+              </AccordionItem>
+
+              <AccordionItem
+                title="Favorite Films"
+                isOpen={openFact === "films"}
+                onClick={() => setOpenFact(openFact === "films" ? null : "films")}
+              >
+                <ListBlock items={funFacts.films} />
+              </AccordionItem>
+
+              <AccordionItem
+                title="Favorite TV Shows"
+                isOpen={openFact === "tv"}
+                onClick={() => setOpenFact(openFact === "tv" ? null : "tv")}
+              >
+                <ListBlock items={funFacts.tv} />
+              </AccordionItem>
+
+              <AccordionItem
+                title="Favorite Artists"
+                isOpen={openFact === "artists"}
+                onClick={() => setOpenFact(openFact === "artists" ? null : "artists")}
+              >
+                <ListBlock items={funFacts.artists} />
+              </AccordionItem>
+
+              <AccordionItem
+                title="Hobbies"
+                isOpen={openFact === "hobbies"}
+                onClick={() => setOpenFact(openFact === "hobbies" ? null : "hobbies")}
+              >
+                <ListBlock items={funFacts.hobbies} />
+              </AccordionItem>
+
+              <AccordionItem
+                title="Favorite Episodes"
+                isOpen={openFact === "episodes"}
+                onClick={() => setOpenFact(openFact === "episodes" ? null : "episodes")}
+              >
+                <ListBlock items={funFacts.episodes} />
+              </AccordionItem>
+            </div>
+          </Section>
 
           {/* Psychographics */}
           <Section title="Psychographics">
