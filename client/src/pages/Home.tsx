@@ -135,6 +135,13 @@ const VisualStat = ({ label, value, max = 100, suffix = "%" }: { label: string, 
   </div>
 );
 
+const FactItem = ({ label, value }: { label: string, value: string }) => (
+  <div className="flex justify-between items-baseline py-2 border-b border-dashed border-border last:border-0 group hover:bg-muted/20 transition-colors px-2 -mx-2">
+    <span className="text-sm font-bold uppercase tracking-wider text-muted-foreground group-hover:text-primary transition-colors">{label}</span>
+    <span className="font-mono text-right">{value}</span>
+  </div>
+);
+
 // --- Data ---
 
 const projects = [
@@ -275,15 +282,27 @@ export default function Home() {
         </Section>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-12">
-          {/* Prompt Library */}
-          <Section title="Prompt Library">
-            <div className="space-y-0">
-              <LinkItem href="#" label="VC Investment Memo Generator" meta="GPT-4o" />
-              <LinkItem href="#" label="SaaS Landing Page Copy" meta="Claude 3.5" />
-              <LinkItem href="#" label="Cold Outreach Sequencer" meta="GPT-4o" />
-              <LinkItem href="#" label="Technical Co-founder Hunter" meta="Perplexity" />
-            </div>
-          </Section>
+          {/* Prompt Library & Favorite Things */}
+          <div className="space-y-24">
+            <Section title="Prompt Library" className="mb-0">
+              <div className="space-y-0">
+                <LinkItem href="#" label="VC Investment Memo Generator" meta="GPT-4o" />
+                <LinkItem href="#" label="SaaS Landing Page Copy" meta="Claude 3.5" />
+                <LinkItem href="#" label="Cold Outreach Sequencer" meta="GPT-4o" />
+                <LinkItem href="#" label="Technical Co-founder Hunter" meta="Perplexity" />
+              </div>
+            </Section>
+
+            <Section title="Favorite Things" className="mb-0">
+              <div className="space-y-1">
+                <FactItem label="Editor" value="VS Code" />
+                <FactItem label="Typeface" value="Geist Mono" />
+                <FactItem label="Coffee" value="Pour Over" />
+                <FactItem label="City" value="Tokyo" />
+                <FactItem label="Reading" value="Snow Crash" />
+              </div>
+            </Section>
+          </div>
 
           {/* Psychographics */}
           <Section title="Psychographics">
@@ -291,13 +310,10 @@ export default function Home() {
               <VisualStat label="Openness" value={96} />
               <VisualStat label="Conscientiousness" value={92} />
               <VisualStat label="Extraversion" value={45} />
-              <div className="flex justify-between items-baseline py-2 border-b border-dashed border-border mt-6">
-                <span className="text-sm font-bold uppercase tracking-wider text-muted-foreground">Myers-Briggs</span>
-                <span className="font-mono">INTJ-A</span>
-              </div>
-              <div className="flex justify-between items-baseline py-2 border-b border-dashed border-border">
-                <span className="text-sm font-bold uppercase tracking-wider text-muted-foreground">Enneagram</span>
-                <span className="font-mono">Type 5w6</span>
+              <div className="mt-8 space-y-1">
+                <FactItem label="Myers-Briggs" value="INTJ-A" />
+                <FactItem label="Enneagram" value="Type 5w6" />
+                <FactItem label="Astrology" value="Scorpio Sun" />
               </div>
             </div>
           </Section>
