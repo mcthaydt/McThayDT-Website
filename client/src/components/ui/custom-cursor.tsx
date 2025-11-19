@@ -3,6 +3,7 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export const CustomCursor = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(true);
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
@@ -11,6 +12,12 @@ export const CustomCursor = () => {
   const cursorYSpring = useSpring(cursorY, springConfig);
 
   useEffect(() => {
+    // Check if device has fine pointer (mouse) vs coarse (touch)
+    const hasFinPointer = window.matchMedia("(pointer: fine)").matches;
+    setIsTouchDevice(!hasFinPointer);
+
+    if (!hasFinPointer) return;
+
     const moveCursor = (e: MouseEvent) => {
       cursorX.set(e.clientX - 8);
       cursorY.set(e.clientY - 8);
@@ -34,6 +41,8 @@ export const CustomCursor = () => {
       document.body.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, [cursorX, cursorY]);
+
+  if (isTouchDevice) return null;
 
   return (
     <motion.div

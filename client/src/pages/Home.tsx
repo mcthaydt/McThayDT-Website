@@ -371,7 +371,7 @@ export default function Home() {
             </span>
             <nav className="flex gap-8 text-xs font-bold uppercase tracking-widest">
               <NavLink href="mailto:mcthaydawson@gmail.com">Email</NavLink>
-              <NavLink href="https://www.linkedin.com/in/mcthaydt">
+              <NavLink href="www.linkedin.com/in/dawsonmcthay">
                 LinkedIn
               </NavLink>
               <NavLink href="https://mcthaydt.substack.com/">Substack</NavLink>
@@ -434,6 +434,8 @@ export default function Home() {
               ) : (
                 <a
                   href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center text-primary font-bold uppercase tracking-wider hover:gap-2 transition-all group/link"
                 >
                   View Project{" "}
@@ -655,7 +657,7 @@ export default function Home() {
             />
           </div>
 
-          <footer className="flex flex-col sm:flex-row justify-between items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-muted-foreground mt-24">
+          <footer className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-muted-foreground mt-24">
             <span>
               © 2025 Dawson // Jack of All Trades, Master of Quite a Few of Them
             </span>
