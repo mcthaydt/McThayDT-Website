@@ -14,14 +14,14 @@ export const services: Service[] = [
   },
   {
     id: 2,
-    title: "Full-Stack Design",
-    description: "I don't just make things pretty. I build systems. Design systems, component libraries, and high-fidelity prototypes that bridge the gap between design and engineering.",
+    title: "Business Model Design", 
+    description: "From gut-feel to grid. I help founders stress-test their assumptions, map out unit economics, and architect a clear revenue logic to prove (or disprove) the financial viability of the idea.",
     order: 2
   },
   {
     id: 3,
-    title: "Technical Advisory",
-    description: "Bridging the gap for non-technical founders. Architecture review, tech stack selection, and hiring support for founding engineering teams.",
+    title: "AI Strategy & Feasibility",
+    description: "From buzzword to blueprint. I help teams demystify LLM capabilities, evaluate technical trade-offs, and define exactly where and how AI fits into your product ecosystem.",
     order: 3
-  }
+  },
 ];

@@ -10,26 +10,26 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: 1,
-    title: "VentureScout",
-    subtitle: "AI Due Diligence",
-    description: "An automated due diligence engine for early-stage investors. Aggregates data from 50+ sources to generate comprehensive risk reports in seconds. Used by 3 Tier-1 VCs.",
+    title: "Stealth Startup",
+    subtitle: "Creator-Owned Franchise Platform (2026)",
+    description: "Developing a revolutionary platform that empowers game developers to co-build a shared IP universe. Features include enforceable royalties, equity-like upside for creators, and a sustainable creator-owned franchise model. (This is the big one.)",
     link: "#",
     order: 1
   },
   {
     id: 2,
-    title: "Nebula Protocol",
-    subtitle: "Decentralized Identity",
-    description: "Self-sovereign identity layer built on Solana. Focused on privacy-preserving KYC for DeFi applications. $1.2M seed round raised.",
-    link: "#",
+    title: "Crispy Cabaret MVP",
+    subtitle: "Token-Gated Access Clubs (2025)",
+    description: "Implemented crypto token-gated access clubs, designed to reward members with a percentage-based ownership stake in user-created digital communities. Focused on decentralized club governance and value distribution.",
+    link: "https://crispy-cabaret-beta.vercel.app/",
     order: 2
   },
   {
     id: 3,
-    title: "Chronos",
-    subtitle: "Productivity OS",
-    description: "A minimalist calendar and task manager that adapts to your energy levels. Built with React, Rust, and sheer willpower. 10k+ MAU.",
-    link: "#",
+    title: "OSAS: Open Source Asset Store MVP",
+    subtitle: "Open Source Game Assets (2024)",
+    description: "Created an open-source asset marketplace specifically engineered to support game engines like Godot and Bevy. The platform promotes collaborative development and facilitates a paid model for shared community assets.",
+    link: "https://testing-osas.netlify.app/",
     order: 3
   }
 ];

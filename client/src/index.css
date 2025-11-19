@@ -44,7 +44,7 @@
   }
   
   * {
-    @apply border-border;
+    @apply border-border cursor-none;
   }
   body {
     @apply font-mono antialiased bg-background text-foreground;
@@ -59,6 +59,30 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .animated-gradient {
+    background: linear-gradient(
+      -45deg,
+      hsl(var(--background)),
+      hsl(var(--background)),
+      hsl(var(--primary) / 0.03),
+      hsl(var(--background))
+    );
+    background-size: 400% 400%;
+    animation: gradient-shift 20s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
 
   .text-outline {
