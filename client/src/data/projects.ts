@@ -12,7 +12,7 @@ export const projects: Project[] = [
     id: 1,
     title: "Stealth Startup",
     subtitle: "Creator-Owned Franchise Platform (2026)",
-    description: "Developing a revolutionary platform that empowers game developers to co-build a shared IP universe. Features include enforceable royalties, equity-like upside for creators, and a sustainable creator-owned franchise model. (This is the big one.)",
+    description: "Riot Games + Steam Workshop + Royalty Enforcement + Community Canon. (This is the big one.)",
     link: "#",
     order: 1
   },
