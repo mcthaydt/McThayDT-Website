@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import {
   Plus,
@@ -153,15 +153,29 @@ const AccordionItem = ({
   isOpen: boolean;
   onClick: () => void;
 }) => {
+  const itemRef = useRef<HTMLDivElement>(null);
+
+  const handleClick = () => {
+    const wasOpen = isOpen;
+    onClick();
+    // Scroll to top when opening (wait for animation to complete)
+    if (!wasOpen) {
+      setTimeout(() => {
+        itemRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 450);
+    }
+  };
+
   return (
     <motion.div
+      ref={itemRef}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       className="border-b border-border pb-6"
     >
       <button
-        onClick={onClick}
+        onClick={handleClick}
         className="w-full flex items-center justify-between group transition-colors text-left py-2"
       >
         <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-6 pr-4">
