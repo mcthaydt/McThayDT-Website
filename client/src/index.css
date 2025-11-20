@@ -41,7 +41,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    @apply bg-background;
+    overscroll-behavior: none;
   }
   
   * {
