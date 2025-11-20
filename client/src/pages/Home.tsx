@@ -385,7 +385,7 @@ export default function Home() {
             </span>
             <nav className="flex gap-8 text-xs font-bold uppercase tracking-widest">
               <NavLink href="mailto:mcthaydawson@gmail.com">Email</NavLink>
-              <NavLink href="www.linkedin.com/in/dawsonmcthay">
+              <NavLink href="https://linkedin.com/in/dawsonmcthay">
                 LinkedIn
               </NavLink>
               <NavLink href="https://mcthaydt.substack.com/">Substack</NavLink>
