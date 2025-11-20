@@ -673,7 +673,7 @@ export default function Home() {
 
           <footer className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-muted-foreground mt-24">
             <span>
-              © 2025 Dawson // Jack of All Trades, Master of Quite a Few of Them
+              © 2025 Dawson // Jack of All Trades, Master of Quite a Few
             </span>
             <span>Chicago, IL // 41.8781° N, 87.6298° W</span>
             <ChicagoTime />
