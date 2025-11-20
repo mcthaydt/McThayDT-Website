@@ -370,7 +370,7 @@ export default function Home() {
           className={`${SPACING.headerMb} pt-8 relative flex flex-col gap-16`}
         >
           {/* ASCII Globe Background */}
-          <div className="absolute right-24 top-[65%] -translate-y-1/2 opacity-30 pointer-events-none hidden md:block text-primary scale-200">
+          <div className="absolute right-4 md:right-24 top-[65%] -translate-y-1/2 opacity-30 pointer-events-none text-primary scale-200">
             <AsciiGlobe />
           </div>
 
