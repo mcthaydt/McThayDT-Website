@@ -11,7 +11,7 @@ export const projects: Project[] = [
   {
     id: 1,
     title: "Stealth Startup",
-    subtitle: "Creator-Owned Franchise Platform (2026)",
+    subtitle: "Co-Created Franchise Platform (2026)",
     description: "Riot Games + Steam Workshop + Royalty Enforcement + Community Canon. (This is the big one.)",
     link: "#",
     order: 1
